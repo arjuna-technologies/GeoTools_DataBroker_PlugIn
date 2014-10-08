@@ -22,19 +22,25 @@
     <dependencies>
         <dependency>
             <groupId>org.jboss.spec.javax.ejb</groupId>
-            <artifactId>jboss-ejb-api_3.1_spec</artifactId>
+            <artifactId>jboss-ejb-api_${ejb-api.version}_spec</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.arjuna.databroker</groupId>
             <artifactId>data-common</artifactId>
-            <version>1.0.0p1m1</version>
+            <version>${version.com.arjuna.databroker}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.arjuna.databroker</groupId>
+            <artifactId>data-common-jee</artifactId>
+            <version>${version.com.arjuna.databroker}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.geotools</groupId>
             <artifactId>gt-shapefile</artifactId>
-            <version>11.1</version>
+            <version>${version.org.geotools}</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>

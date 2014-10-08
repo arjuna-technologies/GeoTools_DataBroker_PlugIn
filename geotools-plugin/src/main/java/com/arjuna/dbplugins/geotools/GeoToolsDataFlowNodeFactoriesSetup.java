@@ -20,7 +20,7 @@ public class GeoToolsDataFlowNodeFactoriesSetup
     @PostConstruct
     public void setup()
     {
-        DataFlowNodeFactory simpleDataFlowNodeFactory = new GeoToolsDataFlowNodeFactory("Simple Data Source Factory", Collections.<String, String>emptyMap());
+        DataFlowNodeFactory simpleDataFlowNodeFactory = new GeoToolsDataFlowNodeFactory("GeoTools Data Flow Node Factory", Collections.<String, String>emptyMap());
 
         _dataFlowNodeFactoryInventory.addDataFlowNodeFactory(simpleDataFlowNodeFactory);
     }
@@ -28,7 +28,7 @@ public class GeoToolsDataFlowNodeFactoriesSetup
     @PreDestroy
     public void cleanup()
     {
-        _dataFlowNodeFactoryInventory.removeDataFlowNodeFactory("Simple Data Source Factory");
+        _dataFlowNodeFactoryInventory.removeDataFlowNodeFactory("GeoTools Data Flow Node Factory");
     }
 
     @EJB(lookup="java:global/databroker/control-core/DataFlowNodeFactoryInventory")

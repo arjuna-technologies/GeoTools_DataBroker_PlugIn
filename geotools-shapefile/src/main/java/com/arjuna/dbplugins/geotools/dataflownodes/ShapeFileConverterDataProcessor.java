@@ -13,7 +13,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import org.geotools.data.FileDataStore;
 import org.geotools.data.FileDataStoreFinder;
 import org.geotools.data.simple.SimpleFeatureCollection;
@@ -22,13 +21,12 @@ import org.geotools.data.simple.SimpleFeatureSource;
 import org.opengis.feature.simple.SimpleFeature;
 import org.opengis.feature.simple.SimpleFeatureType;
 import org.opengis.feature.type.AttributeDescriptor;
-import org.opengis.geometry.primitive.Point;
-
 import com.arjuna.databroker.data.DataConsumer;
+import com.arjuna.databroker.data.DataFlow;
 import com.arjuna.databroker.data.DataProvider;
 import com.arjuna.databroker.data.DataProcessor;
-import com.arjuna.dbplugins.geotools.connectors.SimpleDataConsumer;
-import com.arjuna.dbplugins.geotools.connectors.SimpleDataProvider;
+import com.arjuna.databroker.data.jee.annotation.DataConsumerInjection;
+import com.arjuna.databroker.data.jee.annotation.DataProviderInjection;
 
 public class ShapeFileConverterDataProcessor implements DataProcessor
 {
@@ -36,13 +34,22 @@ public class ShapeFileConverterDataProcessor implements DataProcessor
 
     public ShapeFileConverterDataProcessor(String name, Map<String, String> properties)
     {
-        logger.log(Level.INFO, "SimpleDataProcessor: " + name + ", " + properties);
+        logger.log(Level.INFO, "ShapeFileConverterDataProcessor: " + name + ", " + properties);
 
         _name       = name;
         _properties = properties;
+    }
 
-        _dataConsumer = new SimpleDataConsumer<File>(this, MethodUtil.getMethod(ShapeFileConverterDataProcessor.class, "convert", File.class));
-        _dataProvider = new SimpleDataProvider<String>(this);
+    @Override
+    public DataFlow getDataFlow()
+    {
+        return _dataFlow;
+    }
+
+    @Override
+    public void setDataFlow(DataFlow dataFlow)
+    {
+        _dataFlow = dataFlow;
     }
 
     @Override
@@ -52,9 +59,21 @@ public class ShapeFileConverterDataProcessor implements DataProcessor
     }
 
     @Override
+    public void setName(String name)
+    {
+        _name = name;
+    }
+
+    @Override
     public Map<String, String> getProperties()
     {
         return Collections.unmodifiableMap(_properties);
+    }
+
+    @Override
+    public void setProperties(Map<String, String> properties)
+    {
+        _properties = properties;
     }
 
     public void convert(File shapefileFile)
@@ -138,8 +157,11 @@ public class ShapeFileConverterDataProcessor implements DataProcessor
             return null;
     }
 
+    private DataFlow             _dataFlow;
     private String               _name;
     private Map<String, String>  _properties;
+    @DataConsumerInjection(methodName="consume")
     private DataConsumer<File>   _dataConsumer;
+    @DataProviderInjection
     private DataProvider<String> _dataProvider;
 }

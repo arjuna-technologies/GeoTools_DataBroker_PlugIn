@@ -16,7 +16,9 @@
     <name>GeoTools DataBroker PlugIn Parent</name>
 
     <properties>
-        <version.com.arjuna.databroker>1.0.0p1m1</version.com.arjuna.databroker>
+        <version.org.geotools>11.1</version.org.geotools>
+
+        <version.com.arjuna.databroker>1.0.0p1m2l</version.com.arjuna.databroker>
 
         <jboss-as.username>username</jboss-as.username>
         <jboss-as.password>password</jboss-as.password>
@@ -33,7 +35,16 @@
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <version.org.geotools>11.1</version.org.geotools>
+        <!-- JBossAS-7.1.1.Final
+        <servlet-api.version>3.0</servlet-api.version>
+        <ejb-api.version>3.1</ejb-api.version>
+        <jee.version>6</jee.version>
+        -->
+        <!-- WildFly-8.1.0.Final -->
+        <servlet-api.version>3.1</servlet-api.version>
+        <ejb-api.version>3.2</ejb-api.version>
+        <jee.version>7</jee.version>
+        <!--  -->
     </properties>
 
     <modules>
@@ -56,10 +67,20 @@
 
     <dependencyManagement>
         <dependencies>
+             <!-- JBossAS-7.1.1.Final
             <dependency>
                 <groupId>org.jboss.as</groupId>
                 <artifactId>jboss-as-dist</artifactId>
                 <version>7.1.1.Final</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            -->
+            <!-- WildFly-8.1.0.Final -->
+            <dependency>
+                <groupId>org.wildfly</groupId>
+                <artifactId>wildfly-dist</artifactId>
+                <version>8.1.0.Final</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -79,7 +100,7 @@
                 <artifactId>maven-ejb-plugin</artifactId>
                 <version>2.3</version>
                 <configuration>
-                    <ejbVersion>3.1</ejbVersion>
+                    <ejbVersion>${ejb-api.version}</ejbVersion>
                 </configuration>
             </plugin>
 
@@ -88,7 +109,7 @@
                 <artifactId>maven-ear-plugin</artifactId>
                 <version>2.9</version>
                 <configuration>
-                    <version>6</version>
+                    <version>${jee.version}</version>
                 </configuration>
             </plugin>
 
