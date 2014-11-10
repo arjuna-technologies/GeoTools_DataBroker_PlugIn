@@ -67,7 +67,7 @@
 
     <dependencyManagement>
         <dependencies>
-             <!-- JBossAS-7.1.1.Final
+            <!-- JBossAS-7.1.1.Final
             <dependency>
                 <groupId>org.jboss.as</groupId>
                 <artifactId>jboss-as-dist</artifactId>
