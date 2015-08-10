@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014, Arjuna Technologies Limited, Newcastle-upon-Tyne, England. All rights reserved.
+ * Copyright (c) 2014-2015, Arjuna Technologies Limited, Newcastle-upon-Tyne, England. All rights reserved.
  */
 
 package com.arjuna.dbplugins.geotools.dataflownodes;
@@ -97,23 +97,23 @@ public class ShapeFileConverterDataProcessor implements DataProcessor
                 StringBuffer line           = new StringBuffer();
                 for (AttributeDescriptor attributeDescriptor: attributeDescriptors)
                 {
-                	if (firstAttribute)
-                		firstAttribute = false;
-                	else
-                		line.append(",");
+                    if (firstAttribute)
+                        firstAttribute = false;
+                    else
+                        line.append(",");
 
-                	line.append(feature.getAttribute(attributeDescriptor.getName()));
+                    line.append(feature.getAttribute(attributeDescriptor.getName()));
                 }
 
                 if (logger.isLoggable(Level.FINE))
-            	    logger.log(Level.FINE, "line = [" + line + "]");
+                    logger.log(Level.FINE, "line = [" + line + "]");
 
                 _dataProvider.produce(line.toString());
             }
         }
         catch (Throwable throwable)
         {
-        	logger.log(Level.WARNING, "Problem during conversion of shapefile", throwable);
+            logger.log(Level.WARNING, "Problem during conversion of shapefile", throwable);
         }
     }
 
@@ -123,7 +123,7 @@ public class ShapeFileConverterDataProcessor implements DataProcessor
         Set<Class<?>> dataConsumerDataClasses = new HashSet<Class<?>>();
 
         dataConsumerDataClasses.add(File.class);
-        
+
         return dataConsumerDataClasses;
     }
 
@@ -143,7 +143,7 @@ public class ShapeFileConverterDataProcessor implements DataProcessor
         Set<Class<?>> dataProviderDataClasses = new HashSet<Class<?>>();
 
         dataProviderDataClasses.add(String.class);
-        
+
         return dataProviderDataClasses;
     }
 

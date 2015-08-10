@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014, Arjuna Technologies Limited, Newcastle-upon-Tyne, England. All rights reserved.
+ * Copyright (c) 2014-2015, Arjuna Technologies Limited, Newcastle-upon-Tyne, England. All rights reserved.
  */
 
 package com.arjuna.dbplugins.geotools;
@@ -45,7 +45,7 @@ public class GeoToolsDataFlowNodeFactory implements DataFlowNodeFactory
         List<Class<? extends DataFlowNode>> classes = new LinkedList<Class<? extends DataFlowNode>>();
 
         classes.add(DataProcessor.class);
-        
+
         return classes;
     }
 
