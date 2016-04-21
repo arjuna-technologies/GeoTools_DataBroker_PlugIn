@@ -2,7 +2,7 @@
  * Copyright (c) 2014-2016, Arjuna Technologies Limited, Newcastle-upon-Tyne, England. All rights reserved.
  */
 
-package com.arjuna.dbplugins.tests.geotools.dataflownodes.shapefileconverterdataprocessor;
+package com.arjuna.dbplugins.tests.geotools.shp2csv;
 
 import java.io.File;
 import java.util.Collections;
@@ -10,7 +10,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import com.arjuna.databroker.data.connector.ObserverDataConsumer;
-import com.arjuna.dbplugins.geotools.dataflownodes.ShapeFileConverterDataProcessor;
+import com.arjuna.dbplugins.geotools.shp2csv.ShapeFileConverterDataProcessor;
 
 public class ConverterTest
 {

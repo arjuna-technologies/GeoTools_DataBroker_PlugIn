@@ -8,16 +8,16 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.arjuna.dbplugins</groupId>
+        <groupId>com.arjuna.dbplugins.geotools</groupId>
         <artifactId>geotools-plugin-parent</artifactId>
         <version>1.0.0p1m1</version>
     </parent>
 
-    <artifactId>geotools-shapefile</artifactId>
+    <artifactId>shp2csv-convertor</artifactId>
 
     <packaging>jar</packaging>
 
-    <name>GeoTools Shapefile</name>
+    <name>GeoTools Shapefile to CSV convertor</name>
 
     <dependencies>
         <dependency>

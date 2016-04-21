@@ -8,7 +8,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.arjuna.dbplugins</groupId>
+        <groupId>com.arjuna.dbplugins.geotools</groupId>
         <artifactId>geotools-plugin-parent</artifactId>
         <version>1.0.0p1m1</version>
     </parent>
@@ -21,14 +21,21 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.arjuna.dbplugins</groupId>
-            <artifactId>geotools-shapefile</artifactId>
+            <groupId>com.arjuna.dbplugins.geotools</groupId>
+            <artifactId>csv2shp-convertor</artifactId>
             <version>1.0.0p1m1</version>
             <scope>provided</scope>
             <type>jar</type>
         </dependency>
         <dependency>
-            <groupId>com.arjuna.dbplugins</groupId>
+            <groupId>com.arjuna.dbplugins.geotools</groupId>
+            <artifactId>shp2csv-convertor</artifactId>
+            <version>1.0.0p1m1</version>
+            <scope>provided</scope>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>com.arjuna.dbplugins.geotools</groupId>
             <artifactId>geotools-plugin</artifactId>
             <version>1.0.0p1m1</version>
             <scope>provided</scope>
@@ -45,12 +52,17 @@
                     <includeLibInApplicationXml>true</includeLibInApplicationXml>
                     <modules>
                         <jarModule>
-                            <groupId>com.arjuna.dbplugins</groupId>
-                            <artifactId>geotools-shapefile</artifactId>
+                            <groupId>com.arjuna.dbplugins.geotools</groupId>
+                            <artifactId>shp2csv-convertor</artifactId>
+                            <includeInApplicationXml>true</includeInApplicationXml>
+                        </jarModule>
+                        <jarModule>
+                            <groupId>com.arjuna.dbplugins.geotools</groupId>
+                            <artifactId>csv2shp-convertor</artifactId>
                             <includeInApplicationXml>true</includeInApplicationXml>
                         </jarModule>
                         <ejbModule>
-                            <groupId>com.arjuna.dbplugins</groupId>
+                            <groupId>com.arjuna.dbplugins.geotools</groupId>
                             <artifactId>geotools-plugin</artifactId>
                         </ejbModule>
                     </modules>

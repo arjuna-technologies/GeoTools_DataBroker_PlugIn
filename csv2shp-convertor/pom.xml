@@ -13,11 +13,11 @@
         <version>1.0.0p1m1</version>
     </parent>
 
-    <artifactId>geotools-plugin</artifactId>
+    <artifactId>csv2shp-convertor</artifactId>
 
-    <packaging>ejb</packaging>
+    <packaging>jar</packaging>
 
-    <name>GeoTools DataBroker Plugin</name>
+    <name>GeoTools CSV to Shapefile convertor</name>
 
     <dependencies>
         <dependency>
@@ -32,21 +32,15 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>com.arjuna.dbplugins.geotools</groupId>
-            <artifactId>shp2csv-convertor</artifactId>
-            <version>1.0.0p1m1</version>
+            <groupId>com.arjuna.databroker</groupId>
+            <artifactId>data-common-jee</artifactId>
+            <version>${version.com.arjuna.databroker}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>com.arjuna.dbplugins.geotools</groupId>
-            <artifactId>csv2shp-convertor</artifactId>
-            <version>1.0.0p1m1</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>test</scope>
+            <groupId>org.geotools</groupId>
+            <artifactId>gt-shapefile</artifactId>
+            <version>${version.org.geotools}</version>
         </dependency>
     </dependencies>
 </project>

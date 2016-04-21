@@ -17,7 +17,7 @@ import com.arjuna.databroker.data.InvalidNameException;
 import com.arjuna.databroker.data.InvalidPropertyException;
 import com.arjuna.databroker.data.MissingMetaPropertyException;
 import com.arjuna.databroker.data.MissingPropertyException;
-import com.arjuna.dbplugins.geotools.dataflownodes.ShapeFileConverterDataProcessor;
+import com.arjuna.dbplugins.geotools.shp2csv.ShapeFileConverterDataProcessor;
 
 public class GeoToolsDataFlowNodeFactory implements DataFlowNodeFactory
 {
