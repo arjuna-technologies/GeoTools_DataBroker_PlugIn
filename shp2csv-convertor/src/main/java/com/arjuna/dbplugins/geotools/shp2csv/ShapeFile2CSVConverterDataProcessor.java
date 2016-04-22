@@ -28,13 +28,21 @@ import com.arjuna.databroker.data.DataProcessor;
 import com.arjuna.databroker.data.jee.annotation.DataConsumerInjection;
 import com.arjuna.databroker.data.jee.annotation.DataProviderInjection;
 
-public class ShapeFileConverterDataProcessor implements DataProcessor
+public class ShapeFile2CSVConverterDataProcessor implements DataProcessor
 {
-    private static final Logger logger = Logger.getLogger(ShapeFileConverterDataProcessor.class.getName());
+    private static final Logger logger = Logger.getLogger(ShapeFile2CSVConverterDataProcessor.class.getName());
 
-    public ShapeFileConverterDataProcessor(String name, Map<String, String> properties)
+    public ShapeFile2CSVConverterDataProcessor()
     {
-        logger.log(Level.INFO, "ShapeFileConverterDataProcessor: " + name + ", " + properties);
+        logger.log(Level.INFO, "ShapeFile2CSVConverterDataProcessor");
+
+        _name       = null;
+        _properties = null;
+    }
+
+    public ShapeFile2CSVConverterDataProcessor(String name, Map<String, String> properties)
+    {
+        logger.log(Level.INFO, "ShapeFile2CSVConverterDataProcessor: " + name + ", " + properties);
 
         _name       = name;
         _properties = properties;
@@ -78,7 +86,7 @@ public class ShapeFileConverterDataProcessor implements DataProcessor
 
     public void convert(File shapefileFile)
     {
-        logger.log(Level.INFO, "ShapeFileConverterDataProcessor.convert: " + shapefileFile.getName());
+        logger.log(Level.INFO, "ShapeFile2CSVConverterDataProcessor.convert: " + shapefileFile.getName());
 
         try
         {
@@ -122,7 +130,7 @@ public class ShapeFileConverterDataProcessor implements DataProcessor
     {
         Set<Class<?>> dataConsumerDataClasses = new HashSet<Class<?>>();
 
-        dataConsumerDataClasses.add(File.class);
+        dataConsumerDataClasses.add(String.class);
 
         return dataConsumerDataClasses;
     }
@@ -131,7 +139,7 @@ public class ShapeFileConverterDataProcessor implements DataProcessor
     @SuppressWarnings("unchecked")
     public <T> DataConsumer<T> getDataConsumer(Class<T> dataClass)
     {
-        if (dataClass == File.class)
+        if (dataClass == String.class)
             return (DataConsumer<T>) _dataConsumer;
         else
             return null;
@@ -161,7 +169,7 @@ public class ShapeFileConverterDataProcessor implements DataProcessor
     private String               _name;
     private Map<String, String>  _properties;
     @DataConsumerInjection(methodName="consume")
-    private DataConsumer<File>   _dataConsumer;
+    private DataConsumer<String> _dataConsumer;
     @DataProviderInjection
     private DataProvider<String> _dataProvider;
 }

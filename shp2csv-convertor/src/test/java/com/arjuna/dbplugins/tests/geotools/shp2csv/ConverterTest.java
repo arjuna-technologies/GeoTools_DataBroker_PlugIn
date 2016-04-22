@@ -10,7 +10,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import com.arjuna.databroker.data.connector.ObserverDataConsumer;
-import com.arjuna.dbplugins.geotools.shp2csv.ShapeFileConverterDataProcessor;
+import com.arjuna.dbplugins.geotools.shp2csv.ShapeFile2CSVConverterDataProcessor;
 
 public class ConverterTest
 {
@@ -18,7 +18,7 @@ public class ConverterTest
     @Ignore
     public void simplestConversion()
     {
-        ShapeFileConverterDataProcessor shapeFileDataProcessor = new ShapeFileConverterDataProcessor("ShapeFile Converter Data Processor", Collections.<String, String>emptyMap());
+        ShapeFile2CSVConverterDataProcessor shapeFileDataProcessor = new ShapeFile2CSVConverterDataProcessor("ShapeFile Converter Data Processor", Collections.<String, String>emptyMap());
         ObserverDataConsumer<File>      dataConsumer           = (ObserverDataConsumer<File>) shapeFileDataProcessor.getDataConsumer(File.class);
 
         File testFile = new File("/tmp/test.shp");
