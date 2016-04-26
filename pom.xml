@@ -16,9 +16,9 @@
     <name>GeoTools DataBroker PlugIn Parent</name>
 
     <properties>
-        <version.org.geotools>14.3</version.org.geotools>
-
         <version.com.arjuna.databroker>1.0.0</version.com.arjuna.databroker>
+        <version.org.geotools>14.3</version.org.geotools>
+        <version.org.apache.commons.csv>1.2</version.org.apache.commons.csv>
 
         <jboss-as.username>username</jboss-as.username>
         <jboss-as.password>password</jboss-as.password>

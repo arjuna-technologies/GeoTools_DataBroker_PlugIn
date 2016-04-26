@@ -4,7 +4,12 @@
 
 package com.arjuna.dbplugins.geotools.csv2shp;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.io.StringBufferInputStream;
+import java.io.StringReader;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
@@ -13,6 +18,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVParser;
+import org.apache.commons.csv.CSVRecord;
 import org.geotools.data.FileDataStore;
 import org.geotools.data.FileDataStoreFinder;
 import org.geotools.data.simple.SimpleFeatureCollection;
@@ -27,17 +35,35 @@ import com.arjuna.databroker.data.DataProvider;
 import com.arjuna.databroker.data.DataProcessor;
 import com.arjuna.databroker.data.jee.annotation.DataConsumerInjection;
 import com.arjuna.databroker.data.jee.annotation.DataProviderInjection;
+import com.arjuna.databroker.data.jee.annotation.PostActivated;
+import com.arjuna.databroker.data.jee.annotation.PostConfig;
+import com.arjuna.databroker.data.jee.annotation.PostCreated;
+import com.arjuna.databroker.data.jee.annotation.PostRecovery;
 
 public class CSV2ShapeFileConverterDataProcessor implements DataProcessor
 {
     private static final Logger logger = Logger.getLogger(CSV2ShapeFileConverterDataProcessor.class.getName());
 
+    public static final String LONGITUDECOLUMN_PROPERTYNAME_PREFIX = "Longitude Column";
+    public static final String LATITUDECOLUMN_PROPERTYNAME_PREFIX  = "Latitude Column";
+
+    public CSV2ShapeFileConverterDataProcessor()
+    {
+        logger.log(Level.INFO, "CSV2ShapeFileConverterDataProcessor");
+
+        _longitudeColumn = -1;
+        _latitudeColumn  = -1;
+    }
+
     public CSV2ShapeFileConverterDataProcessor(String name, Map<String, String> properties)
     {
-        logger.log(Level.INFO, "ShapeFileConverterDataProcessor: " + name + ", " + properties);
+        logger.log(Level.INFO, "CSV2ShapeFileConverterDataProcessor: " + name + ", " + properties);
 
         _name       = name;
         _properties = properties;
+
+        _longitudeColumn = -1;
+        _latitudeColumn  = -1;
     }
 
     @Override
@@ -76,40 +102,42 @@ public class CSV2ShapeFileConverterDataProcessor implements DataProcessor
         _properties = properties;
     }
 
-    public void convert(File shapefileFile)
+    @PostCreated
+    @PostRecovery
+    @PostConfig
+    public void setup()
     {
-        logger.log(Level.INFO, "ShapeFileConverterDataProcessor.convert: " + shapefileFile.getName());
+        try
+        {
+            _longitudeColumn = Integer.parseInt(LONGITUDECOLUMN_PROPERTYNAME_PREFIX);
+            _latitudeColumn  = Integer.parseInt(LATITUDECOLUMN_PROPERTYNAME_PREFIX);
+        }
+        catch (Throwable throwable)
+        {
+            logger.log(Level.WARNING, "Problem during parsing of properties", throwable);
+
+            _longitudeColumn = -1;
+            _latitudeColumn  = -1;
+        }
+    }
+
+    public void convert(String data)
+    {
+        logger.log(Level.INFO, "CSV2ShapeFileConverterDataProcessor.convert");
 
         try
         {
-            FileDataStore           fileDataStore     = FileDataStoreFinder.getDataStore(shapefileFile);
-            SimpleFeatureSource     featureSource     = fileDataStore.getFeatureSource();
-            SimpleFeatureCollection featureCollection = featureSource.getFeatures();
-            SimpleFeatureIterator   featureIterator   = featureCollection.features();
-            SimpleFeatureType       schema            = featureCollection.getSchema();
+            Reader    csvReader = new StringReader(data);
+            CSVParser csvParser = new CSVParser(csvReader, CSVFormat.EXCEL);
 
-            List<AttributeDescriptor> attributeDescriptors = schema.getAttributeDescriptors();
-            while (featureIterator.hasNext())
+            StringBuffer shapefile = new StringBuffer();
+
+            for (CSVRecord record : csvParser)
             {
-                SimpleFeature feature = featureIterator.next();
 
-                boolean      firstAttribute = true;
-                StringBuffer line           = new StringBuffer();
-                for (AttributeDescriptor attributeDescriptor: attributeDescriptors)
-                {
-                    if (firstAttribute)
-                        firstAttribute = false;
-                    else
-                        line.append(",");
-
-                    line.append(feature.getAttribute(attributeDescriptor.getName()));
-                }
-
-                if (logger.isLoggable(Level.FINE))
-                    logger.log(Level.FINE, "line = [" + line + "]");
-
-                _dataProvider.produce(line.toString());
             }
+
+            _dataProvider.produce(shapefile.toString());
         }
         catch (Throwable throwable)
         {
@@ -156,6 +184,9 @@ public class CSV2ShapeFileConverterDataProcessor implements DataProcessor
         else
             return null;
     }
+
+    private int _longitudeColumn;
+    private int _latitudeColumn;
 
     private DataFlow             _dataFlow;
     private String               _name;

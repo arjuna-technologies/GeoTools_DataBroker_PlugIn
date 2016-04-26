@@ -42,5 +42,10 @@
             <artifactId>gt-shapefile</artifactId>
             <version>${version.org.geotools}</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-csv</artifactId>
+            <version>${version.org.apache.commons.csv}</version>
+        </dependency>
     </dependencies>
 </project>

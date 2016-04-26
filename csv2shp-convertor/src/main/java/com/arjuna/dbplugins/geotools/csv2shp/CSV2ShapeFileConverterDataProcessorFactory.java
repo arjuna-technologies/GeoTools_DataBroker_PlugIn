@@ -2,7 +2,7 @@
  * Copyright (c) 2014-2016, Arjuna Technologies Limited, Newcastle-upon-Tyne, England. All rights reserved.
  */
 
-package com.arjuna.dbplugins.geotools;
+package com.arjuna.dbplugins.geotools.csv2shp;
 
 import java.util.Collections;
 import java.util.List;
@@ -17,11 +17,10 @@ import com.arjuna.databroker.data.InvalidNameException;
 import com.arjuna.databroker.data.InvalidPropertyException;
 import com.arjuna.databroker.data.MissingMetaPropertyException;
 import com.arjuna.databroker.data.MissingPropertyException;
-import com.arjuna.dbplugins.geotools.shp2csv.ShapeFileConverterDataProcessor;
 
-public class GeoToolsDataFlowNodeFactory implements DataFlowNodeFactory
+public class CSV2ShapeFileConverterDataProcessorFactory implements DataFlowNodeFactory
 {
-    public GeoToolsDataFlowNodeFactory(String name, Map<String, String> properties)
+    public CSV2ShapeFileConverterDataProcessorFactory(String name, Map<String, String> properties)
     {
         _name       = name;
         _properties = properties;
@@ -67,8 +66,8 @@ public class GeoToolsDataFlowNodeFactory implements DataFlowNodeFactory
     public <T extends DataFlowNode> T createDataFlowNode(String name, Class<T> dataFlowNodeClass, Map<String, String> metaProperties, Map<String, String> properties)
         throws InvalidNameException, InvalidPropertyException, MissingPropertyException
     {
-        if (dataFlowNodeClass.isAssignableFrom(ShapeFileConverterDataProcessor.class))
-            return (T) new ShapeFileConverterDataProcessor(name, properties);
+        if (dataFlowNodeClass.isAssignableFrom(CSV2ShapeFileConverterDataProcessor.class))
+            return (T) new CSV2ShapeFileConverterDataProcessor(name, properties);
         else
             return null;
     }
